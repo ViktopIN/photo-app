@@ -24,8 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         secondViewController.tabBarItem = UITabBarItem(title: "Для Вас", image: .init(systemName: "heart.text.square.fill"), tag: 1)
 
         let mainViewController = MainViewController()
-        let mainViewControllerNavigation = UINavigationController(rootViewController: mainViewController)
         mainViewController.tabBarItem = UITabBarItem(title: "Альбомы", image: .init(systemName: "rectangle.stack.fill"), tag: 2)
+        let mainViewControllerNavigation = UINavigationController(rootViewController: mainViewController)
         
         let fourthViewController = FourthViewController()
         fourthViewController.tabBarItem = UITabBarItem(title: "Поиск", image: .init(systemName: "magnifyingglass"), tag: 3)
