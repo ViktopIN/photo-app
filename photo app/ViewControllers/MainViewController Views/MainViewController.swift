@@ -9,8 +9,23 @@ import UIKit
 
 class MainViewController: UIViewController {
 //  MARK: - Properties
+    var myAlbumVerticalStackView: UIStackView = {
+        let stackView = UIStackView()
+        
+        stackView.axis = .vertical
+        stackView.distribution = .fillProportionally
+        
+        return stackView
+    }()
+    
+    // TODO: - shapelayer line
+    
     var myAlbumStackView: UIStackView = {
         let stackView = UIStackView()
+        
+        stackView.axis = .horizontal
+        stackView.distribution = .fillProportionally
+        
         return stackView
     }()
     
@@ -18,7 +33,7 @@ class MainViewController: UIViewController {
         let label = UILabel()
         
         label.text = Strings.myAlbumLabelText
-        label.font = .systemFont(ofSize: Metrics.myAlbumLabelSize)
+        label.font = UIFont(name: "HelveticaNeue-Bold", size: Metrics.myAlbumLabelFontSize)
         
         return label
     }()
@@ -28,6 +43,7 @@ class MainViewController: UIViewController {
         
         button.setTitle(Strings.myAlbumButtonText, for: .normal)
         button.setTitleColor(.link, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: Metrics.myAlbumButtonLabelSize)
         
         return button
     }()
@@ -51,7 +67,9 @@ class MainViewController: UIViewController {
     
 //  MARK: - Settings
     private func hierarchySetup() {
-        view.addSubview(myAlbumStackView)
+        view.addSubview(myAlbumVerticalStackView)
+        
+        myAlbumVerticalStackView.addArrangedSubview(myAlbumStackView)
         
         myAlbumStackView.addArrangedSubview(myAlbumLabel)
         myAlbumStackView.addArrangedSubview(myAlbumButton)
@@ -59,7 +77,21 @@ class MainViewController: UIViewController {
     }
     
     private func layoutSetup() {
+        myAlbumStackView.translatesAutoresizingMaskIntoConstraints = false
+        myAlbumButton.translatesAutoresizingMaskIntoConstraints = false
+        myAlbumLabel.translatesAutoresizingMaskIntoConstraints = false
         
+        let margins = view.layoutMarginsGuide
+        
+        NSLayoutConstraint.activate([
+            myAlbumStackView.topAnchor.constraint(equalTo: margins.topAnchor),
+            myAlbumStackView.leadingAnchor.constraint(equalTo: margins.leadingAnchor),
+            myAlbumStackView.trailingAnchor.constraint(equalTo: margins.trailingAnchor),
+            
+            myAlbumLabel.leadingAnchor.constraint(equalTo: myAlbumStackView.leadingAnchor),
+            
+            myAlbumButton.centerXAnchor.constraint(equalTo: margins.trailingAnchor, constant: -20)
+        ])
     }
     
     private func viewSetup() {

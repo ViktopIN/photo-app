@@ -8,6 +8,12 @@
 import UIKit
 
 enum Metrics {
-    static let myAlbumLabelSize: CGFloat = 10
+    static let myAlbumStackViewTopInset: CGFloat = 150
+
+    static let myAlbumLabelLeadingInset: CGFloat = 21
+    static let myAlbumLabelFontSize: CGFloat = 24
+    
+    static let myAlbumButtonLabelSize: CGFloat = 20
+
 }
 
