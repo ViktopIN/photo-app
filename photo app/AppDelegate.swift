@@ -15,24 +15,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         let tabBarController = UITabBarController()
-        tabBarController.tabBar.backgroundColor = .systemBackground.withAlphaComponent(0.5)
+        tabBarController.tabBar.backgroundColor = .systemBackground.withAlphaComponent(0.4)
         
         let firstViewController = FirstViewController()
         firstViewController.tabBarItem = UITabBarItem(title: "Медиатека", image: .init(systemName: "photo.fill.on.rectangle.fill"), tag: 0)
         
+        let secondViewController = SecondViewController()
+        secondViewController.tabBarItem = UITabBarItem(title: "Для Вас", image: .init(systemName: "heart.text.square.fill"), tag: 1)
+
         let mainViewController = MainViewController()
-        mainViewController.tabBarItem = UITabBarItem(title: "Для Вас", image: .init(systemName: "heart.text.square.fill"), tag: 1)
-        
-        let thirdViewController = ThirdViewController()
-        thirdViewController.tabBarItem = UITabBarItem(title: "Альбомы", image: .init(systemName: "rectangle.stack.fill"), tag: 2)
+        let mainViewControllerNavigation = UINavigationController(rootViewController: mainViewController)
+        mainViewController.tabBarItem = UITabBarItem(title: "Альбомы", image: .init(systemName: "rectangle.stack.fill"), tag: 2)
         
         let fourthViewController = FourthViewController()
         fourthViewController.tabBarItem = UITabBarItem(title: "Поиск", image: .init(systemName: "magnifyingglass"), tag: 3)
         
         tabBarController.setViewControllers([
             firstViewController,
-            mainViewController,
-            thirdViewController,
+            secondViewController,
+            mainViewControllerNavigation,
             fourthViewController
         ], animated: true)
         
