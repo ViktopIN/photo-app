@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		3593509B2869E5C800123501 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3593509A2869E5C800123501 /* AppDelegate.swift */; };
-		3593509D2869E5C800123501 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3593509C2869E5C800123501 /* SceneDelegate.swift */; };
-		3593509F2869E5C800123501 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3593509E2869E5C800123501 /* ViewController.swift */; };
 		359350A22869E5C800123501 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 359350A02869E5C800123501 /* Main.storyboard */; };
 		359350A42869E5CC00123501 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 359350A32869E5CC00123501 /* Assets.xcassets */; };
 		359350A72869E5CC00123501 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 359350A52869E5CC00123501 /* LaunchScreen.storyboard */; };
@@ -18,8 +16,6 @@
 /* Begin PBXFileReference section */
 		359350972869E5C800123501 /* photo app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "photo app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3593509A2869E5C800123501 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3593509C2869E5C800123501 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		3593509E2869E5C800123501 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		359350A12869E5C800123501 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		359350A32869E5CC00123501 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		359350A62869E5CC00123501 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -57,8 +53,6 @@
 			isa = PBXGroup;
 			children = (
 				3593509A2869E5C800123501 /* AppDelegate.swift */,
-				3593509C2869E5C800123501 /* SceneDelegate.swift */,
-				3593509E2869E5C800123501 /* ViewController.swift */,
 				359350A02869E5C800123501 /* Main.storyboard */,
 				359350A32869E5CC00123501 /* Assets.xcassets */,
 				359350A52869E5CC00123501 /* LaunchScreen.storyboard */,
@@ -138,9 +132,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3593509F2869E5C800123501 /* ViewController.swift in Sources */,
 				3593509B2869E5C800123501 /* AppDelegate.swift in Sources */,
-				3593509D2869E5C800123501 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,6 +281,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "photo app/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -316,6 +309,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = CQP8YYBTMF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "photo app/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
