@@ -9,36 +9,15 @@ import UIKit
 
 class MainViewController: UIViewController {
 //  MARK: - Properties
-    var myAlbumVerticalStackView: UIStackView = {
-        let stackView = UIStackView()
-        
-        stackView.axis = .vertical
-        stackView.distribution = .fillProportionally
-        
-        return stackView
-    }()
+    private lazy var firstLineView = addLineView()
     
-    // TODO: - shapelayer line
+    private lazy var myAlbumStackView = addStackView(axis: .horizontal,
+                                                     distribution: .fillProportionally)
+ 
+    private lazy var myAlbumLabel = addLabel(text: Strings.myAlbumLabelText,
+                                             font: UIFont(name: "HelveticaNeue-Bold", size: Metrics.myAlbumLabelFontSize) ?? .systemFont(ofSize: Metrics.myAlbumLabelFontSize))
     
-    var myAlbumStackView: UIStackView = {
-        let stackView = UIStackView()
-        
-        stackView.axis = .horizontal
-        stackView.distribution = .fillProportionally
-        
-        return stackView
-    }()
-    
-    var myAlbumLabel: UILabel = {
-        let label = UILabel()
-        
-        label.text = Strings.myAlbumLabelText
-        label.font = UIFont(name: "HelveticaNeue-Bold", size: Metrics.myAlbumLabelFontSize)
-        
-        return label
-    }()
-    
-    var myAlbumButton: UIButton = {
+    private lazy var myAlbumButton: UIButton = {
         let button = UIButton(type: .system)
         
         button.setTitle(Strings.myAlbumButtonText, for: .normal)
@@ -67,9 +46,8 @@ class MainViewController: UIViewController {
     
 //  MARK: - Settings
     private func hierarchySetup() {
-        view.addSubview(myAlbumVerticalStackView)
-        
-        myAlbumVerticalStackView.addArrangedSubview(myAlbumStackView)
+        view.addSubview(firstLineView)
+        view.addSubview(myAlbumStackView)
         
         myAlbumStackView.addArrangedSubview(myAlbumLabel)
         myAlbumStackView.addArrangedSubview(myAlbumButton)
@@ -77,20 +55,27 @@ class MainViewController: UIViewController {
     }
     
     private func layoutSetup() {
+        let margins = view.layoutMarginsGuide
+        
+        firstLineView.translatesAutoresizingMaskIntoConstraints = false
         myAlbumStackView.translatesAutoresizingMaskIntoConstraints = false
         myAlbumButton.translatesAutoresizingMaskIntoConstraints = false
         myAlbumLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        let margins = view.layoutMarginsGuide
-        
         NSLayoutConstraint.activate([
-            myAlbumStackView.topAnchor.constraint(equalTo: margins.topAnchor),
+            firstLineView.topAnchor.constraint(equalTo: margins.topAnchor),
+            firstLineView.leadingAnchor.constraint(equalTo: margins.leadingAnchor),
+            firstLineView.trailingAnchor.constraint(equalTo: margins.trailingAnchor),
+            
+            myAlbumStackView.topAnchor.constraint(equalTo: firstLineView.bottomAnchor,
+                                                  constant: Metrics.myAlbumStackViewTopInset),
             myAlbumStackView.leadingAnchor.constraint(equalTo: margins.leadingAnchor),
             myAlbumStackView.trailingAnchor.constraint(equalTo: margins.trailingAnchor),
             
             myAlbumLabel.leadingAnchor.constraint(equalTo: myAlbumStackView.leadingAnchor),
             
-            myAlbumButton.centerXAnchor.constraint(equalTo: margins.trailingAnchor, constant: -20)
+            myAlbumButton.centerXAnchor.constraint(equalTo: margins.trailingAnchor,
+                                                   constant: Metrics.myAlbumButtonXAnchorInset)
         ])
     }
     
@@ -107,5 +92,45 @@ class MainViewController: UIViewController {
 //  MARK: - Methods
     @objc func plusButtonAction() {
         print("Tapped plus button")
+    }
+    
+//  MARK: - Private methods
+    private func addStackView(axis: NSLayoutConstraint.Axis,
+                              spacing: CGFloat = 0,
+                              distribution:  UIStackView.Distribution) -> UIStackView {
+            let stackView = UIStackView()
+        
+            stackView.axis = axis
+            stackView.spacing = spacing
+            stackView.distribution = distribution
+        
+            return stackView
+        }
+    
+    private func addLabel(text: String, font: UIFont) -> UILabel {
+        let label = UILabel()
+        
+        label.text = text
+        label.font = font
+        
+        return label
+    }
+    
+    private func addLineView() -> UIView {
+        let lineView = UIView()
+        
+        let shapeLayer = CAShapeLayer()
+        
+        let linePath = UIBezierPath()
+        linePath.move(to: CGPoint(x: 0, y: 0))
+        linePath.addLine(to: CGPoint(x: 926, y: 0))
+        
+        shapeLayer.path = linePath.cgPath
+        shapeLayer.lineWidth = 1
+        shapeLayer.strokeColor = UIColor.lightGray.cgColor
+        
+        lineView.layer.addSublayer(shapeLayer)
+        
+        return lineView
     }
 }
