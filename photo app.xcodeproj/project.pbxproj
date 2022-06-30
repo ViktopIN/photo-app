@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		35007A27286DFEEB0097135D /* My Album Data Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35007A26286DFEEB0097135D /* My Album Data Source.swift */; };
+		35007A29286E07F30097135D /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35007A28286E07F30097135D /* Album.swift */; };
 		354059C0286C860B0093DB84 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354059BF286C860B0093DB84 /* MainViewController.swift */; };
 		354059C2286C86210093DB84 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354059C1286C86210093DB84 /* FirstViewController.swift */; };
 		354059C4286C86330093DB84 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 354059C3286C86330093DB84 /* SecondViewController.swift */; };
@@ -21,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		35007A26286DFEEB0097135D /* My Album Data Source.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "My Album Data Source.swift"; sourceTree = "<group>"; };
+		35007A28286E07F30097135D /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		354059BF286C860B0093DB84 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		354059C1286C86210093DB84 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		354059C3286C86330093DB84 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
@@ -63,6 +67,8 @@
 			children = (
 				354059C8286CA86C0093DB84 /* Metrics.swift */,
 				354059CA286CAA6C0093DB84 /* Strings.swift */,
+				35007A28286E07F30097135D /* Album.swift */,
+				35007A26286DFEEB0097135D /* My Album Data Source.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -181,10 +187,12 @@
 				354059C9286CA86C0093DB84 /* Metrics.swift in Sources */,
 				3593509B2869E5C800123501 /* AppDelegate.swift in Sources */,
 				354059C4286C86330093DB84 /* SecondViewController.swift in Sources */,
+				35007A27286DFEEB0097135D /* My Album Data Source.swift in Sources */,
 				354059D0286CAC7D0093DB84 /* MyAlbumCollectionView.swift in Sources */,
 				354059C0286C860B0093DB84 /* MainViewController.swift in Sources */,
 				354059C6286C86520093DB84 /* FourthViewController.swift in Sources */,
 				354059CB286CAA6C0093DB84 /* Strings.swift in Sources */,
+				35007A29286E07F30097135D /* Album.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

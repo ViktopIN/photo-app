@@ -7,6 +7,7 @@
 
 import UIKit
 
-class myAlbumCollectionView: UICollectionView {
+class myAlbumCollectionView: UICollectionViewController {
     
 }
+

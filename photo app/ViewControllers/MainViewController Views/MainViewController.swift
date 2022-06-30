@@ -127,7 +127,7 @@ class MainViewController: UIViewController {
         
         shapeLayer.path = linePath.cgPath
         shapeLayer.lineWidth = 1
-        shapeLayer.strokeColor = UIColor.lightGray.cgColor
+        shapeLayer.strokeColor = UIColor.lightGray.withAlphaComponent(0.3).cgColor
         
         lineView.layer.addSublayer(shapeLayer)
         
