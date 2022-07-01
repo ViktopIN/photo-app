@@ -9,128 +9,80 @@ import UIKit
 
 class MainViewController: UIViewController {
 //  MARK: - Properties
-    private lazy var firstLineView = addLineView()
+    static let sectionHeaderElementKind = "section-header-element-kind"
     
-    private lazy var myAlbumStackView = addStackView(axis: .horizontal,
-                                                     distribution: .fillProportionally)
- 
-    private lazy var myAlbumLabel = addLabel(text: Strings.myAlbumLabelText,
-                                             font: UIFont(name: "HelveticaNeue-Bold", size: Metrics.myAlbumLabelFontSize) ?? .systemFont(ofSize: Metrics.myAlbumLabelFontSize))
+    enum Section: String, CaseIterable {
+      case myAlbums = "My Albums"
+    }
     
-    private lazy var myAlbumButton: UIButton = {
-        let button = UIButton(type: .system)
-        
-        button.setTitle(Strings.myAlbumButtonText, for: .normal)
-        button.setTitleColor(.link, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: Metrics.myAlbumButtonLabelSize)
-        
-        return button
-    }()
-    
-//    var myAlbumsCollectionView: myAlbumCollectionView = {
-//        let collectionView = myAlbumCollectionView()
-//
-//        collectionView.translatesAutoresizingMaskIntoConstraints = false
-//
-//        return collectionView
-//    }()
+    var albumsCollectionView: UICollectionView! = nil
+    var dataSource = MyAlbumDataSource.get()
     
 //  MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        hierarchySetup()
-        layoutSetup()
-        viewSetup()
+        navigationItem.title = Strings.mainViewCollectionViewTitle
+        configureCollectionView()
+        configureDataSource()
     }
-    
-//  MARK: - Settings
-    private func hierarchySetup() {
-        view.addSubview(firstLineView)
-        view.addSubview(myAlbumStackView)
-        
-        myAlbumStackView.addArrangedSubview(myAlbumLabel)
-        myAlbumStackView.addArrangedSubview(myAlbumButton)
-//        myAlbumStackView.addArrangedSubview(myAlbumsCollectionView)
-    }
-    
-    private func layoutSetup() {
-        let margins = view.layoutMarginsGuide
-        
-        firstLineView.translatesAutoresizingMaskIntoConstraints = false
-        myAlbumStackView.translatesAutoresizingMaskIntoConstraints = false
-        myAlbumButton.translatesAutoresizingMaskIntoConstraints = false
-        myAlbumLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            firstLineView.topAnchor.constraint(equalTo: margins.topAnchor),
-            firstLineView.leadingAnchor.constraint(equalTo: margins.leadingAnchor),
-            firstLineView.trailingAnchor.constraint(equalTo: margins.trailingAnchor),
-            
-            myAlbumStackView.topAnchor.constraint(equalTo: firstLineView.bottomAnchor,
-                                                  constant: Metrics.myAlbumStackViewTopInset),
-            myAlbumStackView.leadingAnchor.constraint(equalTo: margins.leadingAnchor),
-            myAlbumStackView.trailingAnchor.constraint(equalTo: margins.trailingAnchor),
-            
-            myAlbumLabel.leadingAnchor.constraint(equalTo: myAlbumStackView.leadingAnchor),
-            
-            myAlbumButton.centerXAnchor.constraint(equalTo: margins.trailingAnchor,
-                                                   constant: Metrics.myAlbumButtonXAnchorInset)
-        ])
-    }
-    
-    private func viewSetup() {
-        view.backgroundColor = .systemBackground
-        
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.largeTitleDisplayMode = .always
-        title = Strings.mainViewCollectionViewTitle
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(plusButtonAction))
-    }
+}
 
-//  MARK: - Methods
-    @objc func plusButtonAction() {
-        print("Tapped plus button")
+// MARK: - Extensions
+extension MainViewController {
+    func configureCollectionView() {
+      let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: generateLayout())
+      view.addSubview(collectionView)
+      collectionView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+      collectionView.backgroundColor = .systemBackground
+      collectionView.delegate = self
+      collectionView.register(AlbumItemCell.self, forCellWithReuseIdentifier: AlbumItemCell.reuseIdentifer)
+      collectionView.register(FeaturedAlbumItemCell.self, forCellWithReuseIdentifier: FeaturedAlbumItemCell.reuseIdentifer)
+      collectionView.register(SharedAlbumItemCell.self, forCellWithReuseIdentifier: SharedAlbumItemCell.reuseIdentifer)
+      collectionView.register(
+        HeaderView.self,
+        forSupplementaryViewOfKind: AlbumsViewController.sectionHeaderElementKind,
+        withReuseIdentifier: HeaderView.reuseIdentifier)
+      albumsCollectionView = collectionView
     }
     
-//  MARK: - Private methods
-    private func addStackView(axis: NSLayoutConstraint.Axis,
-                              spacing: CGFloat = 0,
-                              distribution:  UIStackView.Distribution) -> UIStackView {
-            let stackView = UIStackView()
-        
-            stackView.axis = axis
-            stackView.spacing = spacing
-            stackView.distribution = distribution
-        
-            return stackView
+    func generateLayout() -> UICollectionViewLayout {
+      let layout = UICollectionViewCompositionalLayout { (sectionIndex: Int,
+        layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+        let isWideView = layoutEnvironment.container.effectiveContentSize.width > 500
+
+        let sectionLayoutKind = Section.allCases[sectionIndex]
+        switch (sectionLayoutKind) {
+        case .myAlbums: return self.generateMyAlbumsLayout(isWide: isWideView)
         }
-    
-    private func addLabel(text: String, font: UIFont) -> UILabel {
-        let label = UILabel()
-        
-        label.text = text
-        label.font = font
-        
-        return label
+      }
+      return layout
     }
     
-    private func addLineView() -> UIView {
-        let lineView = UIView()
-        
-        let shapeLayer = CAShapeLayer()
-        
-        let linePath = UIBezierPath()
-        linePath.move(to: CGPoint(x: 0, y: 0))
-        linePath.addLine(to: CGPoint(x: 926, y: 0))
-        
-        shapeLayer.path = linePath.cgPath
-        shapeLayer.lineWidth = 1
-        shapeLayer.strokeColor = UIColor.lightGray.withAlphaComponent(0.3).cgColor
-        
-        lineView.layer.addSublayer(shapeLayer)
-        
-        return lineView
+    func generateFeaturedAlbumsLayout(isWide: Bool) -> NSCollectionLayoutSection {
+      let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                            heightDimension: .fractionalWidth(2/3))
+      let item = NSCollectionLayoutItem(layoutSize: itemSize)
+
+      // Show one item plus peek on narrow screens, two items plus peek on wider screens
+      let groupFractionalWidth = isWide ? 0.475 : 0.95
+      let groupFractionalHeight: Float = isWide ? 1/3 : 2/3
+      let groupSize = NSCollectionLayoutSize(
+        widthDimension: .fractionalWidth(CGFloat(groupFractionalWidth)),
+        heightDimension: .fractionalWidth(CGFloat(groupFractionalHeight)))
+      let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
+      group.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
+
+      let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                              heightDimension: .estimated(44))
+      let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+        layoutSize: headerSize,
+        elementKind: AlbumsViewController.sectionHeaderElementKind, alignment: .top)
+
+      let section = NSCollectionLayoutSection(group: group)
+      section.boundarySupplementaryItems = [sectionHeader]
+      section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
+
+      return section
     }
 }
